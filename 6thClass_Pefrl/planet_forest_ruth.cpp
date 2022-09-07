@@ -3,18 +3,20 @@
 
 #include "./../Requirements/vector.h"
 
-const double g=9.8; // m/s²
-// const double AU = 149.6e6 * 1000; // m
-// const double G = 6.67428e-11; // N*m² / kg²
-
 const double GM = 1.0;
+
+const double Theta = 1 /(2 - pow(2.0, 1/3.0));
+const double coeff1 = Theta/2;
+const double coeff2 = (1- Theta)/2;
+const double coeff3 = 1 - 2 * Theta;
 
 class Body{
     public:
         void init(double x0, double y0, double z0, double Vx0, 
                   double Vy0, double Vz0, double m0, double R0);
         void compute_Forces();
-        void movement(double dt);
+        void move_r(double dt, double coeff);
+        void move_v(double dt, double coeff);
 
         double get_x(){return r.x();};
         double get_y(){return r.y();};
@@ -35,13 +37,16 @@ void Body::compute_Forces(){
     F = (-F_aux) * r;
 }
 
-void Body::movement(double dt){
-    r += V * dt;
-    V += F * (dt/m);
+void Body::move_r(double dt, double coeff){
+    r += V * (dt * coeff);
+}
+
+void Body::move_v(double dt, double coeff){
+    V += F * (dt * coeff/m);
 }
 
 int main(){
-    double t, dt=0.01;
+    double t, dt=1.0;
     double omega, T, V0, r0=100; 
     double m = 1;
     Body Planet;
@@ -57,8 +62,22 @@ int main(){
 
     for(t=0; t<1.1*T; t+= dt){
         std::cout << Planet.get_x() << "\t" << Planet.get_y() << std::endl;
+        Planet.move_r(dt, coeff1);
+
         Planet.compute_Forces();
-        Planet.movement(dt);
+        Planet.move_v(dt, Theta);
+
+        Planet.move_r(dt, coeff2);
+
+        Planet.compute_Forces();
+        Planet.move_v(dt, coeff3);
+
+        Planet.move_r(dt, coeff2);
+
+        Planet.compute_Forces();
+        Planet.move_v(dt, Theta);
+
+        Planet.move_r(dt, coeff1);
     }
 
     return 0;

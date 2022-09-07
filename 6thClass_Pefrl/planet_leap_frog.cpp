@@ -3,10 +3,6 @@
 
 #include "./../Requirements/vector.h"
 
-const double g=9.8; // m/s²
-// const double AU = 149.6e6 * 1000; // m
-// const double G = 6.67428e-11; // N*m² / kg²
-
 const double GM = 1.0;
 
 class Body{
@@ -15,6 +11,7 @@ class Body{
                   double Vy0, double Vz0, double m0, double R0);
         void compute_Forces();
         void movement(double dt);
+        void boot(double dt);
 
         double get_x(){return r.x();};
         double get_y(){return r.y();};
@@ -35,13 +32,17 @@ void Body::compute_Forces(){
     F = (-F_aux) * r;
 }
 
+void Body::boot(double dt){
+    V -= F * (dt/(2*m));
+}
+
 void Body::movement(double dt){
-    r += V * dt;
     V += F * (dt/m);
+    r += V * dt;
 }
 
 int main(){
-    double t, dt=0.01;
+    double t, dt=0.1;
     double omega, T, V0, r0=100; 
     double m = 1;
     Body Planet;
@@ -54,6 +55,8 @@ int main(){
     // double Vy0, double Vz0, double m0, double R0
 
     Planet.init(r0, 0 , 0, 0, V0/2, 0, m, 0.15);
+    Planet.compute_Forces();
+    Planet.boot(dt);
 
     for(t=0; t<1.1*T; t+= dt){
         std::cout << Planet.get_x() << "\t" << Planet.get_y() << std::endl;

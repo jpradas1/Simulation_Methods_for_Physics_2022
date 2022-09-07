@@ -1,11 +1,9 @@
 #include <iostream>
 #include <cmath>
 
-#include "vector.h"
+#include "./../Requirements/vector.h"
 
-const double g=9.8; // m/s²
-// const double AU = 149.6e6 * 1000; // m
-// const double G = 6.67428e-11; // N*m² / kg²
+const double g = 9.8; // m/s²
 
 const double GM = 1.0;
 
