@@ -35,4 +35,5 @@
 # Other files
 *.txt
 *.cvs
-.vscode
+.vscode/*
+*.gif

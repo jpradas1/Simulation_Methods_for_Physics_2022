@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cmath>
 
-#include "./../Requirements/vector.h"
+#include "./../Requirements/vector_old.h"
 
 const double G = 1.0;
 const int N = 2;
@@ -86,8 +86,8 @@ void StartAnimation(){
     // std::cout << "set terminal gif animate" << std::endl;
     // std::cout << "set output 'Two_planets.gif'" << std::endl;
     std::cout << "unset key" << std::endl;
-    std::cout << "set xrange[-12:12]" << std::endl;
-    std::cout << "set yrange[-12:12]" << std::endl;
+    std::cout << "set xrange[-120:120]" << std::endl;
+    std::cout << "set yrange[-120:120]" << std::endl;
     std::cout << "set size ratio -1" << std::endl;
     std::cout << "set parametric" << std::endl;
     std::cout << "set trange [0:7]" << std::endl;
@@ -105,21 +105,21 @@ void FinishDomain(){
 int main(){
     Body Planet[N];
     Collider Newton;
-    double m0 = 10, m1= 1, r = 11;
+    double m0 = 1047, m1= 1, r = 100;
     double M = m0 + m1, x0 = -m1*r /M, x1 = m0*r /M;
     double omega, T, V0, V1;
     omega = sqrt(G* M / (pow(r, 3)));
     V0 = omega*x0; V1 = omega * x1;
     T = 2*M_PI / omega;
-    double t, tmax = 10*T, dt=0.1;
+    double t, tmax = 11*T, dt=0.01;
     double tdraw, tdomain = T/500;
     int ii;
 
     // double x0, double y0, double z0, double Vx0, 
     // double Vy0, double Vz0, double m0, double R0
 
-    Planet[0].init(x0, 0 , 0, 0, V0, 0, m0, 1.0);
-    Planet[1].init(x1, 0 , 0, 0, V1, 0, m1, 0.5);
+    Planet[0].init(x0, 0 , 0, 0, V0, 0, m0, 10);
+    Planet[1].init(x1, 0 , 0, 0, V1, 0, m1, 5);
 
     StartAnimation();
 
