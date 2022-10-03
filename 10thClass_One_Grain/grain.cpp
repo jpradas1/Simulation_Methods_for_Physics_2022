@@ -8,7 +8,7 @@ const double g = 9.8;
 const int Nx = 1, Ny = 1, N = Nx * Ny;
 const double K = 1e4;
 const double Lx = 60, Ly = 60;
-const double Gamma = 10;
+const double Gamma = 20;
 const double Kcundall = 500, mu = 0.4;
 
 const double Zeta = 0.1786178958448091e00;
@@ -175,11 +175,11 @@ int main(){
     Crandom rand64(1);
     double m0 = 1, R0 = 2, kT = 10, theta;
     // double V0 = sqrt(2 * kT / m0);
-    double t, tmax = 2 * 20*sqrt(Ly/g), dt=1e-4;
-    double tdraw, tdomain = tmax/1000;
+    double t, tmax = 100*sqrt(Ly/g), dt=1e-4;
+    double tdraw, tdomain = tmax/10000;
     int ii, ix, iy;
     double dx = Lx /(Nx+1), dy = Ly /(Ny+1);
-    double theta0 = 0, omega0 = 0, omega_max = 5;
+    double theta0 = 0, omega0 = 0, omega_max = 8.0;
 
     // double x0, double y0, double Vx0, 
     // double Vy0, double m0, double R0
