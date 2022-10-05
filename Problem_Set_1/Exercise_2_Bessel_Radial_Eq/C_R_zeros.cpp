@@ -73,10 +73,6 @@ double F(double lambda){
         R1 = R(r, lambda);
         b = r;
         Raux = (R_p * R1)/abs(R_p * R1 );
-        // if(Raux<0)
-        //     flag = false;
-        //     // break;
-        // else R_p = R1;
     }
 
     r = Zeros_by_bisection(a, b, R, lambda);
@@ -100,7 +96,7 @@ int main(){
     std::cout.precision(8);
     std::cout.setf(std::ios::scientific);
 
-    for(r=0.01; r<=1.1; r+=0.01)
+    for(r=0.001; r<=1.1; r+=0.01)
         std::cout << r << "\t" << R(r, lambda) << "\t" << R(r, 2*lambda)
                   << "\t" << R(r, 3*lambda) << "\t" << R(r, 4*lambda)
                   << "\t" << 0 << std::endl;
